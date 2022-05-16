@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    is_admin = models.BooleanField('admin status', default=False)
+
     is_tutor = models.BooleanField('tutor status', default=False)
     is_tutee = models.BooleanField('tutee status', default=False)
     
