@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'cars.apps.CarsConfig',
     'comments', 
-    'replies'
+    'replies',
+    'reviews',
+    'tuteetasks'
 ]
 
 MIDDLEWARE = [
