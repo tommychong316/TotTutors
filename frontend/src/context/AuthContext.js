@@ -1,9 +1,10 @@
 import { createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useEffect } from "react-router-dom";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 const AuthContext = createContext();
+
 
 export default AuthContext;
 
@@ -25,6 +26,10 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(userToken);
   const [user, setUser] = useState(setUserObject(decodedUser));
   const [isServerError, setIsServerError] = useState(false);
+  
+
+
+
   const navigate = useNavigate();
 
   const registerUser = async (registerData) => {
@@ -35,6 +40,8 @@ export const AuthProvider = ({ children }) => {
         email: registerData.email,
         first_name: registerData.firstName,
         last_name: registerData.lastName,
+        is_tutor: registerData.isTutor,
+        is_tutee: registerData.isTutee,
       };
       let response = await axios.post(`${BASE_URL}/register/`, finalData);
       if (response.status === 201) {
