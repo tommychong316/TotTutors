@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 
 const RegisterPage = () => {
+  
+
   const { registerUser } = useContext(AuthContext);
   const defaultValues = {
     username: "",
@@ -10,7 +12,21 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
+    is_tutor: "",
+    is_tutee: "",
   };
+
+  const [tuteed, setTuteed] = useState(false);
+
+  const handleTuteeChange = () => {
+    setTuteed(!tuteed);
+  };
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    setChecked(!checked);
+  };
+
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
     registerUser
@@ -62,6 +78,26 @@ const RegisterPage = () => {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Tutee
+          <input
+            type={"checkbox"}
+            tuteed={tuteed}
+            name="Tutee"
+            value={formData.is_tutee}
+            onChange={handleTuteeChange}
+          />
+        </label>
+        <label>
+        Tutor
+          <input
+            type={"checkbox"}
+            checked={checked}
+            name="is_tutor"
+            value={formData.is_tutor}
+            onChange={handleChange}
           />
         </label>
         <p style={{ fontSize: "12px" }}>
