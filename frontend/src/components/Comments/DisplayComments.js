@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import Comment from "./Comment";
 import axios from "axios";
 
 const DisplayComments = () => {
@@ -9,12 +9,14 @@ const DisplayComments = () => {
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
   const [comments, setComments] = useState([]);
-
+  
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/comments/all/");
+        let response = await axios.get(
+          "http://127.0.0.1:8000/api/comments/all/"
+        );
         setComments(response.data);
         console.log("setComments", setComments);
       } catch (error) {
@@ -24,15 +26,16 @@ const DisplayComments = () => {
     fetchComments();
   }, []);
   return (
-    <div className="container">
-      <h1> Comments!</h1>
-      {comments &&
-        comments.map((comment) => (
-          <p key={comment.id}>
-              {comment.user_id}
-            {comment.text} 
-          </p>
-        ))}
+    <div className="comments">
+      <h3 className="comments-title">Comments!</h3>
+      <div className="comments-container">
+     
+        {comments &&
+          comments.map((comment) => (
+              
+            <p key={comment.id}>{comment.user}{comment.text}</p>
+          ))}
+      </div>
     </div>
   );
 };

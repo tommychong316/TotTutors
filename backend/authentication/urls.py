@@ -10,5 +10,6 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('tutors/', views.get_all_tutors), 
     path('tutees/', views.get_all_tutees),
+    path('all/', views.get_all_users),
 ]
 
