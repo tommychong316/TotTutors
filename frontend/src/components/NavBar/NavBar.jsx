@@ -12,8 +12,13 @@ const Navbar = () => {
       <ul>
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>React/Django JWT</b>
+            <b>Tot Tutors</b>
           </Link>
+        </li>
+        <li>
+        <Link to="/ReviewPage" style={{textDecoration: "none", color: 'black'}}>
+          <b>Reviews</b>
+        </Link>
         </li>
         <li>
           {user ? (
