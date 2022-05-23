@@ -17,7 +17,7 @@ const AddComment = () => {
 
     async function postNewComment(){
         try {
-            let response = await axios.post("http://127.0.0.1:8000/api/comments/", formData  {
+            let response = await axios.post("http://127.0.0.1:8000/api/comments/", formData, {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }

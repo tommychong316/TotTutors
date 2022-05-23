@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Comment from "./Comment";
 import axios from "axios";
+import AddComment from "./AddComment";
 
 const DisplayComments = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -10,6 +11,11 @@ const DisplayComments = () => {
   const [user, token] = useAuth();
   const [comments, setComments] = useState([]);
   
+  function addNewComment(comment) {
+    let tempComments = [...comments, comment];
+
+    setComments(tempComments);
+  }
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -33,8 +39,12 @@ const DisplayComments = () => {
         {comments &&
           comments.map((comment) => (
               
-            <p key={comment.id}>{comment.user}{comment.text}</p>
+            <p key={comment.id}>{comment.username}
+            {comment.text}</p>
           ))}
+      </div>
+      <div className="border-box">
+        <AddComment postNewComment={addNewComment} />
       </div>
     </div>
   );
