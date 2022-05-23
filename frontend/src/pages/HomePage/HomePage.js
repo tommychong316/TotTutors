@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import Map from "../../components/Map";
 import axios from "axios";
 
 const HomePage = () => {
@@ -27,6 +27,7 @@ const HomePage = () => {
   }, [token]);
   return (
     <div className="container">
+     
       <h1>Home Page for {user.username}!</h1>
       {cars &&
         cars.map((car) => (
