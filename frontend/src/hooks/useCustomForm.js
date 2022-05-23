@@ -5,7 +5,9 @@ const useCustomForm = (initialValues = {}, onSubmit) => {
 
   const handleInputChange = (e) => {
     e.persist();
-    if (e.target.name === "isStudent") {
+    console.log(formData)
+    console.log(e.target.name)
+    if (e.target.name === "is_tutor" || e.target.name==="is_tutee") {
       setFormValues({ ...formData, [e.target.name]: e.target.checked });
     } else {
       setFormValues({ ...formData, [e.target.name]: e.target.value });
