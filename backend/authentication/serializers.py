@@ -18,6 +18,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["first_name"] = user.first_name
         token["is_tutor"] = user.is_tutor
         token["is_tutee"] = user.is_tutee
+        token["location"] = user.location 
 
         return token
 
@@ -34,7 +35,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         # If added new columns through the User model, add them in the fields
         # list as seen below
         fields = ('username', 'password', 'email',
-                  'first_name', 'last_name', 'is_tutor', 'is_tutee')
+                  'first_name', 'last_name', 'is_tutor', 'is_tutee', 'location')
 
     def create(self, validated_data):
 
@@ -45,6 +46,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             last_name=validated_data['last_name'],
             is_tutor=validated_data['is_tutor'],
             is_tutee=validated_data['is_tutee'],
+            location=validated_data['location'],
 
             # If added new columns through the User model, add them in this
             # create method. Example below:
@@ -60,5 +62,37 @@ class OtherUserSerializer(serializers.ModelSerializer):
     # serializer User model, but only include fields you'd want other users to see
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'is_tutor', 'is_tutee')
+        fields = ('id', 'username', 'email', 'is_tutor', 'is_tutee', 'location')
 
+
+class CommentsSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = User
+        # If added new columns through the User model, add them in the fields
+        # list as seen below
+        fields = ('username', 'password', 'email',
+                  'first_name', 'last_name', 'is_tutor', 'is_tutee', 'location')
+
+    def create(self, validated_data):
+
+        user = User.objects.create(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            is_tutor=validated_data['is_tutor'],
+            is_tutee=validated_data['is_tutee'],
+            location=validated_data['location'],
+
+            # If added new columns through the User model, add them in this
+            # create method. Example below:
+
+            # is_student=validated_data['is_student']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user
+   

@@ -6,7 +6,7 @@ class User(AbstractUser):
 
     is_tutor = models.BooleanField('tutor status', default=False)
     is_tutee = models.BooleanField('tutee status', default=False)
-    
+    location = models.CharField(max_length=20)
     
     
     '''
