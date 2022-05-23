@@ -12,22 +12,12 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
-    is_tutor: "",
-    is_tutee: "",
+    is_tutor: false,
+    is_tutee: false,
+    location: "",
   };
 
-  const [tuteed, setTuteed] = useState(false);
-
-  const handleTuteeChange = () => {
-    setTuteed(!tuteed);
-  };
-  const [checked, setChecked] = useState(false);
-
-  const handleChange = () => {
-    setChecked(!checked);
-  };
-
-  const [formData, handleInputChange, handleSubmit] = useCustomForm(
+  const [formData, handleInputChange,handleSubmit] = useCustomForm(
     defaultValues,
     registerUser
   );
@@ -84,20 +74,27 @@ const RegisterPage = () => {
           Tutee
           <input
             type={"checkbox"}
-            tuteed={tuteed}
-            name="Tutee"
+            name="is_tutee"
             value={formData.is_tutee}
-            onChange={handleTuteeChange}
+            onChange={handleInputChange}
           />
         </label>
         <label>
         Tutor
           <input
             type={"checkbox"}
-            checked={checked}
             name="is_tutor"
             value={formData.is_tutor}
-            onChange={handleChange}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Location:{" "}
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleInputChange}
           />
         </label>
         <p style={{ fontSize: "12px" }}>
