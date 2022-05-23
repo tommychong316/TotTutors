@@ -62,7 +62,7 @@ class OtherUserSerializer(serializers.ModelSerializer):
     # serializer User model, but only include fields you'd want other users to see
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'is_tutor', 'is_tutee', 'location')
+        fields = ('id', 'username', 'first_name', 'email', 'is_tutor', 'is_tutee', 'location')
 
 
 class CommentsSerializer(serializers.ModelSerializer):
