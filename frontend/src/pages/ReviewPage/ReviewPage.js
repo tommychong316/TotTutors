@@ -3,6 +3,8 @@ import useAuth from "../../hooks/useAuth";
 import DisplayReviews from "../../components/DisplayReviews/DisplayReviews";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ReviewForm from "../../components/DisplayReviews/ReviewForm";
+
 
 const ReviewPage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -11,21 +13,62 @@ const ReviewPage = () => {
   const [user, token] = useAuth();
   const [reviews, setReviews] = useState([]);
   
-
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        let response = await axios.get(
-          "http://127.0.0.1:8000/api/reviews/all/"
-        );
-        setReviews(response.data);
-        console.log("setReviews", setReviews);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchReviews();
+    getReviews();
   }, []);
+
+  // do axios call here for reviews
+  const getReviews = async () => {
+    try {
+      let response = await axios.get("http://127.0.0.1:8000/api/reviews/all/");
+      setReviews(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const addReview = async (addNew) => {
+    try {
+      await axios.post("http://127.0.0.1:8000/api/reviews/", addNew, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      getReviews();
+    } catch (error) {
+      console.log(addNew);
+      console.log(error.message);
+    }
+  };
+
+  const deleteReview = async (id) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/reviews/${id}/`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      getReviews();
+    } catch (error) {
+      console.log(id);
+      console.log(error.message);
+    }
+  }; 
+
+  const updateReview = async (review, id) => {
+    try {
+      await axios.put(`http://127.0.0.1:8000/api/reviews/${id}/`, review, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      getReviews();
+    } catch (error) {
+      console.log(review, id);
+      console.log(error.message);
+    }
+  };  
+
   return (
     <div className="container">
     <div className="row">
@@ -33,17 +76,17 @@ const ReviewPage = () => {
       <small className="text-muted">Reviews</small></h3>
     <div className="col-md-6">
       <div className="border-box">
-      <AddReviewForm addNewReviewProperty={addNewReview} />
-      </div>
+      <ReviewForm user={user} addReview={addReview} />      </div>
       </div>
   </div>
   <div className="row">
     <div className="col-md-6">
       <div className="border-box">
-    <DisplayReviews parentReviews={reviews} />
+    <DisplayReviews user={user} parentReviews={reviews} addReview={addReview} getReviews={getReviews}/>
       </div>
   </div>
   </div>
+  
 
 </div>
   );
