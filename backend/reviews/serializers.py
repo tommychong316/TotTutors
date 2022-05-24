@@ -7,7 +7,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ["id", "user_id", "review"]
+        fields = ["id", "user_id", "username", "review" ]
         depth = 1
 
     def get_username(self, comment):
