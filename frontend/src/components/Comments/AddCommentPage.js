@@ -16,9 +16,9 @@ const AddCommentPage = () => {
     const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues)
 
 
-    async function postNewComment(){
+    async function postNewComment(newComment){
         try {
-            let response = await axios.post("http://127.0.0.1:8000/api/comments/", formData, {
+            let response = await axios.post("http://127.0.0.1:8000/api/comments/", formData, newComment, {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
