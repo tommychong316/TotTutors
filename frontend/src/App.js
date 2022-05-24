@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ReviewPage from "./pages/ReviewPage/ReviewPage";
+import GeneralQuestionPage from "./pages/GeneralQuestionPage/GeneralQuestionPage";
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -37,7 +38,8 @@ function App() {
             }
           />
 
-          <Route path="/Review" element={<ReviewPage />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/generalcomments" element={<GeneralQuestionPage />} />
 
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
