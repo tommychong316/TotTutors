@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import Comment from "./Comment";
+import Comment from "./Comments";
 import axios from "axios";
 import AddComment from "./AddCommentPage";
 
