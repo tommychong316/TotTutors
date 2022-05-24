@@ -15,6 +15,7 @@ const AddCommentPage = () => {
     const navigate = useNavigate()
     const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues)
 
+
     async function postNewComment(){
         try {
             let response = await axios.post("http://127.0.0.1:8000/api/comments/", formData, {
@@ -22,12 +23,14 @@ const AddCommentPage = () => {
                     Authorization: 'Bearer ' + token
                 }
             })
-            navigate("/")
+            
         } catch (error) {
           console.log(error.message);
 
         }
     }
+
+
 
     return ( 
         <div className="container">

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import DisplayReviews from "../../components/DisplayReviews/DisplayReviews";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ReviewPage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -26,19 +27,26 @@ const ReviewPage = () => {
     fetchReviews();
   }, []);
   return (
-    <div className="comments">
-      <h3 className="comments-title">Reviews!</h3>
-      <div className="comments-container">
-     
-        {reviews &&
-          reviews.map((review) => (
-              
-            <p key={review.id}>{review.username}
-            {review.text}</p>
-          ))}
+    <div className="container">
+    <div className="row">
+      <h3 style={{"margin-top": "1em"}}>Tutor
+      <small className="text-muted">Reviews</small></h3>
+    <div className="col-md-6">
+      <div className="border-box">
+      <AddReviewForm addNewReviewProperty={addNewReview} />
       </div>
-    </div>
+      </div>
+  </div>
+  <div className="row">
+    <div className="col-md-6">
+      <div className="border-box">
+    <DisplayReviews parentReviews={reviews} />
+      </div>
+  </div>
+  </div>
+
+</div>
   );
-};
+}
 
 export default ReviewPage;
