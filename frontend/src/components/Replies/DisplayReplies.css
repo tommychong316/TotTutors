@@ -1,0 +1,18 @@
+.replies-box {
+    display: flex;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-right: 4rem;
+    background-color: rgb(141, 134, 134);
+    box-shadow: darkred 2px 2px 6px;
+    flex-direction: column
+}
+iframe {
+    margin-right: 4rem;
+}
+.reply {
+    margin-bottom: 1rem;
+}
+.video-screen {
+    display:flex
+}
