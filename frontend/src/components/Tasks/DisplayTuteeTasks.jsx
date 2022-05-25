@@ -18,11 +18,11 @@ const DisplayTuteetasks = ({ parentTuteetasks }) => {
               <tr>
                 <td>{tuteetask.task}</td>
               </tr>
-              <tr>
+             
                 <td>
                   <CustomButton message="✔️" />
                 </td>
-              </tr>
+              
             </tr>
           );
         })}
