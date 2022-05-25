@@ -11,7 +11,26 @@ const ReviewPage = () => {
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
   const [reviews, setReviews] = useState([]);
+  const [reviewText, setReviewText] = useState(" ");
+  const [reviewId, setReviewId] = useState("review.id");
+  const [reviewEditing, setReviewEditing] = useState(null);
 
+  useEffect(() => {
+    const temp = JSON.stringify(reviews)
+    localStorage.setItem("reviews", temp)
+  }, [reviews])
+
+  function editReview(id) {
+    const updatedReviews = [...reviews].map((review) => {
+      if (review.id === id) {
+        review.review = reviewText;
+      }
+      return review;
+    });
+    setReviews(updatedReviews);
+    setReviewEditing(null);
+    setReviewText("");
+  }
   useEffect(() => {
     getReviews();
   }, []);
@@ -54,11 +73,10 @@ const ReviewPage = () => {
     }
   };
 
-  const updateReview = async (review, id, e) => {
-    e.preventDefault();
+  const updatereview = async (review, id) => {
     try {
-      await axios.put(`http://127.0.0.1:8000/api/reviews/${id}/`, review, {  
-      headers: {
+      await axios.put(`http://127.0.0.1:8000/api/reviews/${id}/`, review, {
+        headers: {
           Authorization: "Bearer " + token,
         },
       });
@@ -69,15 +87,10 @@ const ReviewPage = () => {
     }
   };
 
-
-
   return (
     <div className="container">
       <div className="row">
-        <h3 style={{ "margin-top": "1em" }}>
-          Tutor
-          <small className="text-muted">Reviews</small>
-        </h3>
+        <h2 style={{ "margin-top": "1em" }}>Tutor Reviews</h2>
         <div className="col-md-6">
           <div className="border-box">
             <ReviewForm user={user} addReview={addReview} />{" "}
@@ -102,15 +115,35 @@ const ReviewPage = () => {
                         <td>{review.username}</td>
                       </tr>
                       <tr>
-                        <td>{review.review}</td>
+                        {reviewEditing === review.id ? (
+                          <input
+                            type="text"
+                            onChange={(e) => setReviewText(e.target.value)}
+                            value={reviewText}
+                          />
+                        ) : (
+                          <td>{review.review}</td>
+                        )}
                       </tr>
                       <td>
-                        <button className="btn btn-sm btn-warning ml-2" onClick={(e) => deleteReview(review.id, e)}>
+                        <button
+                          className="btn btn-sm btn-warning ml-2"
+                          onClick={(e) => deleteReview(review.id, e)}
+                        >
                           Delete
                         </button>
-                        <button className="btn btn-sm btn-primary" onClick={(e) => updateReview(review.review, review.id, e)}>
-                          Edit
-                        </button>
+                        {reviewEditing === review.id ? (
+                          <button onClick={() => editReview(review.id)}>
+                            Submit Edits
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-sm btn-primary"
+                            onClick={() => setReviewEditing(review.id)}
+                          >
+                            Edit
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
