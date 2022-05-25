@@ -8,7 +8,7 @@ class ReplySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Reply
-        fields =["id", "text", "comment_id", "user_id"]
+        fields =["id", "text", "comment_id", "user_id", "username"]
         depth = 1
         
     def get_username(self, comment):
