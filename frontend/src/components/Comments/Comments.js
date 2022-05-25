@@ -18,7 +18,7 @@ const Comments = (props) => {
               </div>
               <hr/>
               <div>
-                <DisplayReplies commentId={el.id} />
+                <DisplayReplies commentId={el.id} id={el.id} />
               </div>
             </div>
           );

@@ -7,34 +7,28 @@ import "./DisplayReplies.css";
 const DisplayReplies = (props) => {
   const [user, token] = useAuth();
   const [replies, setReplies] = useState([]);
-  let id = props.commentId;
+
   useEffect(() => {
     getReplies(props.commentId);
   }, []);
 
-  const addReply = async (new_answer) => {
-    let tempReplies = [...replies, replies];
+  async function addReply(new_answer) {
     try {
-      await axios.post(
-        `http://127.0.0.1:8000/api/replies/commentreply/${id}`,
-        new_answer,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      getReplies(props.commentId);
-      setReplies(tempReplies);
+      await axios.post(`http://127.0.0.1:8000/api/replies/reply${props.commentId}/`, new_answer, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
     } catch (error) {
       console.log(new_answer);
       console.log(error.message);
     }
-  };
+  }
+
   async function getReplies(id) {
     try {
       let response = await axios.get(
-        `http://127.0.0.1:8000/api/replies/allreplies/${id}/`,
+        `http://127.0.0.1:8000/api/replies/${id}/`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -49,6 +43,7 @@ const DisplayReplies = (props) => {
 
   return (
     <div>
+      <h4>Replies</h4>
       {replies.map((reply) => {
         if (replies !== []) {
           return (

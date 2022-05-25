@@ -38,7 +38,7 @@ const ReviewPage = () => {
   // do axios call here for reviews
   const getReviews = async () => {
     try {
-      let response = await axios.get("http://127.0.0.1:8000/api/reviews/all/");
+      let response = await axios.get("http://127.0.0.1:8000/api/reviews/");
       setReviews(response.data);
     } catch (error) {
       console.log(error.message);
