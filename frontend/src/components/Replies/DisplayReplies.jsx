@@ -14,7 +14,7 @@ const DisplayReplies = (props) => {
 
   const addReply = async (new_answer) => {
     try {
-      await axios.post("http://127.0.0.1:8000/api/reply/", new_answer, {
+      await axios.post(`http://127.0.0.1:8000/api/replies/commentreply/`, new_answer, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -27,7 +27,7 @@ const DisplayReplies = (props) => {
   };
   async function getReplies(id) {
     try {
-      let response = await axios.get(`http://127.0.0.1:8000/api/reply/${id}/`, {
+      let response = await axios.get(`http://127.0.0.1:8000/api/replies/${id}/`, {
         headers: {
           Authorization: "Bearer " + token,
         },
